@@ -1,4 +1,5 @@
 ﻿using Dapper_Crud.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Data;
@@ -8,6 +9,7 @@ namespace Dapper_Crud.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "Admin,User")]
     public class StateController : ControllerBase
     {
         private readonly IStateRepo _stateRepo;
@@ -18,9 +20,11 @@ namespace Dapper_Crud.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin,User")]
         public async Task<IActionResult> GetAll() => Ok(await _stateRepo.GetAllAsync());
 
         [HttpGet("{id}")]
+        [Authorize(Roles = "Admin,User")]
         public async Task<IActionResult> GetById(int id)
         {
             var state = await _stateRepo.GetByIdAsync(id);
@@ -29,6 +33,7 @@ namespace Dapper_Crud.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin,User")]
         public async Task<IActionResult> Create([FromBody] State state)
         {
             var id = await _stateRepo.CreateAsync(state);
@@ -36,6 +41,7 @@ namespace Dapper_Crud.Controllers
         }
 
         [HttpPut]
+        [Authorize(Roles = "Admin,User")]
         public async Task<IActionResult> Update([FromBody] State state)
         {
             var success = await _stateRepo.UpdateAsync(state);
@@ -43,6 +49,7 @@ namespace Dapper_Crud.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin,User")]
         public async Task<IActionResult> Delete(int id)
         {
             var success = await _stateRepo.DeleteAsync(id);

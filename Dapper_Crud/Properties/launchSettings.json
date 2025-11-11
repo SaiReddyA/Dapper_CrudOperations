@@ -10,7 +10,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "https": {
+    "DapperCrud": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,
